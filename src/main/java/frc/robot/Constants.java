@@ -1,6 +1,10 @@
 package frc.robot;
 
 import edu.wpi.first.networktables.Publisher;
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -65,5 +69,14 @@ public class Constants {
         public static double extendSpeed = -0.1;
         public static double retractSpeed = 0.1;
     }
-
+    public class Vision {
+        private static final double distanceToFrontX = 0.132;
+        private static final double distanceFromLeftY = -0.046;
+        private static final double distanceFromFloorZ = 0.508;
+        public static final String cameraName = "PC_SOMETHING";
+        public static final AprilTagFieldLayout tagLayout =
+                AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
+        public static final Transform3d robotToCam = new Transform3d(distanceToFrontX, distanceFromLeftY, distanceFromFloorZ, new Rotation3d(0,0,0));
+        public static final boolean useVision = true;
+    }
 }

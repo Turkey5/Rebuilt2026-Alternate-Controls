@@ -63,11 +63,12 @@ public class RobotContainer {
 
 
     /* Path follower */
-   // private final SendableChooser<Command> autoChooser;
+    private final SendableChooser<Command> autoChooser;
 
     public RobotContainer() {
-      //  autoChooser = AutoBuilder.buildAutoChooser("Tests");
-    //    SmartDashboard.putData("Auto Mode", autoChooser);
+         drivetrain = TunerConstants.createDrivetrain();
+        autoChooser = AutoBuilder.buildAutoChooser("Tests");
+        SmartDashboard.putData("Auto Mode", autoChooser);
         InitializeSubsystems();
         configureBindings();
 
@@ -121,17 +122,10 @@ public class RobotContainer {
 
     public Command getAutonomousCommand() {
         /* Run the path selected from the auto chooser */
-        //return autoChooser.getSelected();
-        return null;
+        return autoChooser.getSelected();
     }
 
     private void InitializeSubsystems() {
-        try {
-            drivetrain = TunerConstants.createDrivetrain();
-        } catch(Throwable error){
-            System.out.println(error.getMessage());
-        }
-
         try {
             shooter = new Shooter();
             ShooterDefaultCommand shooterCmd = new ShooterDefaultCommand(shooter);
@@ -163,10 +157,8 @@ public class RobotContainer {
             System.out.println(error.getMessage());
         }
         if (rollers != null && feeder != null) {
-            Feed feederCmd = new Feed(feeder);
-            RollerCommand rollerCmd = new RollerCommand(rollers);
-            shooterController.leftTrigger().whileTrue(feederCmd.alongWith(rollerCmd));
-            shooterController.y().onTrue(feederCmd.alongWith(rollerCmd).withTimeout(3));
+            shooterController.leftTrigger().whileTrue(new Feed(feeder).alongWith(new RollerCommand(rollers)));
+            shooterController.y().onTrue(new Feed(feeder).alongWith(new RollerCommand(rollers)).withTimeout(3));
         } 
         if (intake != null && rollers != null) {
             IntakeCommand intakeCmd = new IntakeCommand(intake);
