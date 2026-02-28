@@ -13,6 +13,11 @@ public class IntakeExtend extends Command{
     }
 
     @Override
+    public void initialize() {
+        intakeDeployer.intExtendSetpointPosition();
+    }
+
+    @Override
     public void execute() {
         intakeDeployer.runToExtendedPosition();
     }

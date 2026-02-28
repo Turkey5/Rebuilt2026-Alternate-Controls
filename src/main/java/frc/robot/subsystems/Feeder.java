@@ -19,10 +19,10 @@ public class Feeder extends SubsystemBase{
     
 
     private SparkMax motor1;
-    private SparkMax motor2;
+    //private SparkMax motor2;
 
     private SparkFlexConfig motor1Config;
-    private SparkFlexConfig motor2Config;
+    //private SparkFlexConfig motor2Config;
 
     private double fP;
     private double fI;
@@ -37,7 +37,7 @@ public class Feeder extends SubsystemBase{
 
 
         motor1 = new SparkMax(motor1CanId, MotorType.kBrushless);
-        motor2 = new SparkMax(motor2CanId, MotorType.kBrushless);
+        //motor2 = new SparkMax(motor2CanId, MotorType.kBrushless);
 
 
         SmartDashboard.putNumber("FeederP", fP);
@@ -46,24 +46,24 @@ public class Feeder extends SubsystemBase{
         SmartDashboard.putNumber("FeederFF", fFF);
 
         motor1Config = createConfigurationForVelocity(true);
-        motor2Config = createConfigurationForVelocity(true);
+        //motor2Config = createConfigurationForVelocity(true);
         motor1.configure(motor1Config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        motor2.configure(motor2Config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        //motor2.configure(motor2Config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
     public void feed() {
         motor1.set(0.3);
-        motor2.set(0.3);
+        //motor2.set(0.3);
     }
 
     public void feedAtConstantVelocity() {
         motor1.getClosedLoopController().setSetpoint(setPoint, ControlType.kVelocity, ClosedLoopSlot.kSlot0, fFF);
-        motor2.getClosedLoopController().setSetpoint(setPoint, ControlType.kVelocity, ClosedLoopSlot.kSlot0, fFF);
+        //motor2.getClosedLoopController().setSetpoint(setPoint, ControlType.kVelocity, ClosedLoopSlot.kSlot0, fFF);
     }
 
     public void stop() {
         motor1.stopMotor();
-        motor2.stopMotor();
+        //motor2.stopMotor();
     }
 
     private SparkFlexConfig createConfigurationForVelocity(boolean isInverted){
@@ -83,16 +83,16 @@ public class Feeder extends SubsystemBase{
         fFF = SmartDashboard.getNumber("FeederFF", fFF);
         if (pVal != fP || iVal != fI || dVal != fD) {
             motor1Config.closedLoop.pid(pVal, iVal, dVal);
-            motor2Config.closedLoop.pid(pVal, iVal, dVal);
+            //motor2Config.closedLoop.pid(pVal, iVal, dVal);
             motor1.configure(motor1Config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-            motor2.configure(motor2Config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+            //motor2.configure(motor2Config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
             fP = pVal;
             fI = iVal;
             fD = dVal;
 
         }
         SmartDashboard.putNumber("Feeder Motor1 Velocity", motor1.getEncoder().getVelocity());
-        SmartDashboard.putNumber("Feeder Motor2 Velocity", motor1.getEncoder().getVelocity());
+        //SmartDashboard.putNumber("Feeder Motor2 Velocity", motor2.getEncoder().getVelocity());
 
     }
 }

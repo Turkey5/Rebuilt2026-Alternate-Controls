@@ -24,7 +24,7 @@ public class Constants {
 
     public class FeederConstants {
         public static int motor1CanId = 25;
-        public static int motor2CanId = 26;
+        //public static int motor2CanId = 26;
 
         public static double kP = 0.0005;
         public static double kI = 0.00000005;
@@ -58,8 +58,8 @@ public class Constants {
         public static double kP = 2.16;
         public static double kI = 0.0;
         public static double kD = 0.01;
-        public static double upSetPoint = 0.02;
-        public static double downSetPoint = 0.30;
+        public static double upSetPoint = 0.074;
+        public static double downSetPoint = 0.388;
         public static double kG = 0.16;
         public static double kV = 6.33;
         public static double kA = 0.02;
