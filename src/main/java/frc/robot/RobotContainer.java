@@ -13,9 +13,11 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -90,9 +92,17 @@ public class RobotContainer {
         return new Feed(feeder).alongWith(new RollerCommand(rollers));
     }
 
-    private Command getToMiddleShootPose() {
-        Command command = AutoBuilder.pathfindToPoseFlipped(new Pose2d(2.271, 3.991, new Rotation2d(Math.toRadians(180.000))), PathConstraints.unlimitedConstraints(12.0));
-        return command.andThen(getFireCommand().withTimeout(2.0));
+    private Command runToPath(String pathName) {
+      //  Command command = AutoBuilder.pathfindToPoseFlipped(new Pose2d(2.271, 3.991, new Rotation2d(Math.toRadians(180.000))), PathConstraints.unlimitedConstraints(12.0));
+      //  return command.andThen(getFireCommand().withTimeout(2.0));
+      try {
+        PathPlannerPath goalPath = PathPlannerPath.fromPathFile(pathName);
+        PathConstraints constraints = new PathConstraints(3.0, 4.0, Units.degreesToRadians(540), Units.degreesToRadians(720));
+        return AutoBuilder.pathfindThenFollowPath(goalPath, constraints).andThen(drivetrain.applyRequest(() -> brake)).withTimeout(1);
+      } catch(Exception e) {
+        return drivetrain.applyRequest(() -> brake);
+      }
+
     }
 
     private void configureBindings() {
@@ -132,6 +142,8 @@ public class RobotContainer {
         driveTrainController.back().and(driveTrainController.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
         driveTrainController.start().and(driveTrainController.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         driveTrainController.start().and(driveTrainController.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+
+        driveTrainController.y().onTrue(runToPath("Tel Score From Middle"));
 
         // Reset the field-centric heading on left bumper press.
         driveTrainController.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
@@ -183,7 +195,6 @@ public class RobotContainer {
             IntakeCommand intakeCmd = new IntakeCommand(intake);
             RollerCommand rollerCmd = new RollerCommand(rollers);
             shooterController.rightTrigger().whileTrue(intakeCmd.alongWith(rollerCmd));
-            shooterController.y().onTrue(getToMiddleShootPose());
         }
 
 
