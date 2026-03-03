@@ -11,9 +11,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "FireShooter"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "DeployIntake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "FireShooter"
+                }
+              }
+            ]
           }
         }
       ]

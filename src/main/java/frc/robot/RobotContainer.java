@@ -87,7 +87,7 @@ public class RobotContainer {
     private void registerCommands() {
         NamedCommands.registerCommand("FireShooter",getFireCommand().withTimeout(3.0));
         NamedCommands.registerCommand("DeployIntake", new IntakeExtend(intakeDeployer));
-        NamedCommands.registerCommand("runIntake", new IntakeCommand(intake));
+        NamedCommands.registerCommand("runIntake", new IntakeCommand(intake).withTimeout(5));
         NamedCommands.registerCommand("stopIntake", new InstantCommand(() -> intake.stop(), intake));
     }
 

@@ -5,45 +5,54 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "DeployIntake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "runIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "move to pickup"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 2.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StopIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "move to score"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "FireShooter"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "DeployIntake"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "runIntake"
+                            }
+                          },
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "move to pickup"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "move to score"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "FireShooter"
+                }
+              }
+            ]
           }
         }
       ]
