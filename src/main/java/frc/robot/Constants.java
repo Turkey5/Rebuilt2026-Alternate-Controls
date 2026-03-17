@@ -59,12 +59,12 @@ public class Constants {
         public static double kI = 0.0;
         public static double kD = 0.01;
         public static double upSetPoint = 0.074;
-        public static double downSetPoint = 0.388;
+        public static double downSetPoint = 0.3252;
         public static double kG = 0.16;
         public static double kV = 6.33;
         public static double kA = 0.02;
-        public static double extendedLimit = 0.32;
-        public static double retractLimit = 0.01;
+        public static double extendedLimit = 0.358;
+        public static double retractLimit = 0.111;
         public static double extendSpeed = -0.1;
         public static double retractSpeed = 0.1;
     }
