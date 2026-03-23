@@ -18,7 +18,7 @@ public class Constants {
         public static double kI = 0.0000005;
         public static double kD = 0.0;
         public static double kFF = 5.20;
-        public static double setPoint = 3000.0;
+        public static double setPoint = 2750.0;
         public static double kMaxI = 100.0;
     }
 
@@ -58,8 +58,8 @@ public class Constants {
         public static double kP = 2.16;
         public static double kI = 0.0;
         public static double kD = 0.01;
-        public static double upSetPoint = 0.045;
-        public static double downSetPoint = 0.3452;
+        public static double upSetPoint = 0.0936;
+        public static double downSetPoint = 0.378;
         public static double kG = 0.16;
         public static double kV = 6.33;
         public static double kA = 0.02;
