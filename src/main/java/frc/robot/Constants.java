@@ -68,6 +68,11 @@ public class Constants {
         public static double extendSpeed = -0.1;
         public static double retractSpeed = 0.1;
     }
+
+    public class Controls {
+        public static String controllerType = "single";
+    }
+    
     public class Vision {
         private static final double distanceToFrontX = -0.08;
         private static final double distanceFromLeftY = 0.0;
