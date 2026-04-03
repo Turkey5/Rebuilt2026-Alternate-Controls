@@ -1,3 +1,3 @@
-public class Elastic {
+public class Elastic extends SubsystemBase {
 
 }
