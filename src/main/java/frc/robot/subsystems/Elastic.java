@@ -11,7 +11,7 @@ public class Elastic extends SubsystemBase {
     //creates an elastic display/input for an int with the name keyName
   }
 
-  public Elastic(double baseValue, Sting keyName) {
+  public Elastic(double baseValue, String keyName) {
     //creates an elastic display/input for a double with the name keyName
   }
 }
